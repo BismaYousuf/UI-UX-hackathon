@@ -31,31 +31,21 @@ function ChefCard({ name, role, image }: ChefCardProps) {
     <p className="text-sm sm:text-base text-gray-800">{role}</p>
   </div>
 </div>
-
-
   )
 }
 
 export default function MeetOurChefs() {
   const chefs = [
     {
-      name: "D.Estwood",
-      role: "Chief Chef",
       image: "/Chef 1.png",
     },
     {
-      name: "D.Scoriesh",
-      role: "Assistant Chef",
       image: "/Chef 2.png",
     },
     {
-      name: "M.William",
-      role: "Advertising Chef",
       image: "/Card 3.png",
     },
     {
-      name: "W.Readfroad",
-      role: "Chef",
       image: "/Card 4.png",
     },
   ]
@@ -82,9 +72,6 @@ export default function MeetOurChefs() {
 
         {/* Chef Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-          {chefs.map((chef) => (
-            <ChefCard key={chef.name} {...chef} />
-          ))}
         </div>
 
         <div className="text-center mt-12">
