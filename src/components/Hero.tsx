@@ -27,7 +27,7 @@ export function HeroSection() {
 
               {/* Content */}
               <div className="pl-12">
-                <p className="text-[#FF9F0D] font-['Great_Vibes'] text-3xl mb-4">It's Quick & Amusing!</p>
+                <p className="text-[#FF9F0D] font-['Great_Vibes'] text-3xl mb-4">Its Quick & Amusing!</p>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
                   <span className="text-[#FF9F0D]">The Art of speed</span><br />
                   food Quality

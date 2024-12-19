@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import {  Mail, Lock, ChevronRight } from 'lucide-react'
 import Image from "next/image"
-import { Header } from "@/components/header"
+
 
 export default function SignUpForm() {
   return (

@@ -1,6 +1,6 @@
 import Image from "next/image"
-import { Calendar, MessageSquare, UserCircle2, ArrowUpRight, ChevronRight } from 'lucide-react'
-import { Card, CardContent } from "@/components/ui/card"
+import {  ChevronRight } from 'lucide-react'
+import { Card } from "@/components/ui/card"
 import BlogSidebar from "@/components/blogsidebar"
 import BlogCard2 from "@/components/blogCard2"
 import BlogCard3 from "@/components/blogCard3"
