@@ -20,10 +20,6 @@ export function HeroSection() {
           {/* Left side content */}
           <div className="w-full lg:w-1/2 text-white mb-12 lg:mb-0">
             <div className="relative">
-              {/* Decorative lines */}
-              <div className="absolute left-0 top-0 bottom-0 w-px bg-white"></div>
-              <div className="absolute left-0 top-1/2 w-6 h-px bg-white"></div>
-              <div className="absolute left-0 bottom-0 w-6 h-px bg-white"></div>
 
               {/* Content */}
               <div className="pl-12">
@@ -42,15 +38,7 @@ export function HeroSection() {
 
               {/* Social icons */}
               <div className="absolute left-0 top-1/2 -translate-y-1/2 space-y-4">
-                <div className="w-6 h-6 border border-white rounded-full flex items-center justify-center">
-                  <span className="text-xs">f</span>
-                </div>
-                <div className="w-6 h-6 border border-[#FF9F0D] rounded-full flex items-center justify-center">
-                  <span className="text-xs text-[#FF9F0D]">t</span>
-                </div>
-                <div className="w-6 h-6 border border-white rounded-full flex items-center justify-center">
-                  <span className="text-xs">P</span>
-                </div>
+               <Image src="/SC.png" alt="Facebook" width={24} height={500} />
               </div>
             </div>
           </div>
