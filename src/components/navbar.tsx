@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { Search, ShoppingBag, ChevronDown } from 'lucide-react'
-import { Button } from "@/components/ui/button"
+import * as React from "react";
+import Link from "next/link";
+import { Search, ShoppingBag, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -11,25 +11,31 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/navigation-menu";
+import { Input } from "@/components/ui/input";
 
 const navigationItems = [
   { title: "Home", href: "/" },
   { title: "Menu", href: "/menu" },
   { title: "Blog", href: "/blog" },
-  { title: "Pages", href: "#", children: [
-    { title: "About Us", href: "/about" },
-    { title: "Team", href: "/not-found" },
-    { title: "FAQ", href: "/faq" },
-  ]},
+  {
+    title: "Pages",
+    href: "#",
+    children: [
+      { title: "About Us", href: "/about" },
+      { title: "Team", href: "/not-found" },
+      { title: "FAQ", href: "/faq" },
+    ],
+  },
   { title: "About", href: "/aboutSection" },
   { title: "Shop", href: "/Ourshop" },
   { title: "Contact", href: "/signupForm" },
-]
+];
 
 export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <nav className="relative bg-black py-4 px-4 md:px-6 lg:px-8">
@@ -55,7 +61,11 @@ export function Navbar() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+                d={
+                  isMenuOpen
+                    ? "M6 18L18 6M6 6l12 12"
+                    : "M4 6h16M4 12h16M4 18h16"
+                }
               />
             </svg>
           </button>
@@ -79,6 +89,7 @@ export function Navbar() {
                                   <Link
                                     href={child.href}
                                     className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                    onClick={closeMenu}
                                   >
                                     {child.title}
                                   </Link>
@@ -92,6 +103,7 @@ export function Navbar() {
                       <Link
                         href={item.href}
                         className="text-white hover:text-[#FF9F0D] transition-colors px-2 py-1"
+                        onClick={closeMenu}
                       >
                         {item.title}
                       </Link>
@@ -136,6 +148,7 @@ export function Navbar() {
                             key={child.title}
                             href={child.href}
                             className="block text-white hover:text-[#FF9F0D] px-2 py-1"
+                            onClick={closeMenu}
                           >
                             {child.title}
                           </Link>
@@ -146,6 +159,7 @@ export function Navbar() {
                     <Link
                       href={item.href}
                       className="block text-white hover:text-[#FF9F0D] px-2 py-1"
+                      onClick={closeMenu}
                     >
                       {item.title}
                     </Link>
@@ -167,6 +181,5 @@ export function Navbar() {
         )}
       </div>
     </nav>
-  )
+  );
 }
-
