@@ -1,7 +1,13 @@
+import { client } from '@/sanity/lib/client';
 import { SandwichIcon as Hamburger, Cookie, Wine } from 'lucide-react'
 import Image from 'next/image'
 
-export default function WhyChooseUs() {
+export default async function WhyChooseUs() {
+  const res = await client.fetch(
+  "*[_type == 'landingpage'][0].section[1]{'orangefoodHeading': orangefoodHeading, 'foodHeading': foodHeading, 'foodsubhead': foodsubhead, 'foodcategorycards': foodcategorycards[]{'foodcardimg': foodcardimg.asset->url, 'fooddis': fooddis, 'foodtitle': foodtitle}}"
+ );
+   
+ 
   return (
     <section className="bg-black py-12 sm:py-16 md:py-20 lg:py-24 mt-0">
       <div className="container mx-auto px-4">

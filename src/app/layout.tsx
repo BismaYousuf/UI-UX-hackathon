@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 
 
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -28,12 +29,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.snipcart.com/themes/v3.2.0/default/snipcart.css"/>
+   </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+
+         <div hidden id="snipcart" data-api-key={process.env.NEXT_PUBLIC_SNIPCART_API_KEY} data-config-modal-style="none"></div>
+
         <Navbar/>
         {children}
         <Footer/>
+
       </body>
     </html>
   );

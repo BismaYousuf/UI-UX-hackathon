@@ -1,3 +1,4 @@
+//src\components\blog.tsx
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { MessageCircle, Share2, ThumbsUp } from 'lucide-react'
 import Image from "next/image"

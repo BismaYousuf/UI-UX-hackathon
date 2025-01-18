@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-import { Star, X, Plus, Minus, ChevronRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Star, Plus, Minus, ChevronRight, Trash2 } from 'lucide-react'
 import Image from 'next/image'
-import CheckoutSummary from '@/components/CheckOut'
+import Link from 'next/link'
+import CheckOut from '@/components/CheckOut'
+import { useSearchParams } from 'next/navigation'
 
 interface Product {
   id: number
@@ -15,38 +17,14 @@ interface Product {
 }
 
 export default function ShoppingCart() {
-
   const [products, setProducts] = useState<Product[]>([
+    // Default product for testing
     {
       id: 1,
       name: "Burger",
       price: 35.00,
       rating: 3,
       image: "/08.png",
-      quantity: 1
-    },
-    {
-      id: 2,
-      name: "Pizza",
-      price: 35.00,
-      rating: 3,
-      image: "/Gourmet.png",
-      quantity: 1
-    },
-    {
-      id: 3,
-      name: "Chocolate Muffin",
-      price: 35.00,
-      rating: 3,
-      image: "/blog3.png",
-      quantity: 1
-    },
-    {
-      id: 4,
-      name: "Cheese Platter",
-      price: 35.00,
-      rating: 3,
-      image: "/sweet.png",
       quantity: 1
     }
   ])
@@ -65,14 +43,71 @@ export default function ShoppingCart() {
     setProducts(products.filter(product => product.id !== id))
   }
 
+  const addToCart = (newProduct: Omit<Product, 'quantity'>) => {
+    const existingProduct = products.find(product => product.id === newProduct.id)
+    if (existingProduct) {
+      updateQuantity(existingProduct.id, 1)
+    } else {
+      setProducts([...products, { ...newProduct, quantity: 1 }])
+    }
+  }
+
   const calculateTotal = (price: number, quantity: number) => {
     return (price * quantity).toFixed(2)
   }
 
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    // Load cart from localStorage
+    const savedCart = localStorage.getItem("cart")
+    if (savedCart) {
+      const parsedCart = JSON.parse(savedCart)
+      if (Array.isArray(parsedCart) && parsedCart.length > 0) {
+        setProducts(parsedCart)
+      }
+    }
+
+    // Check for URL parameters
+    const id = searchParams.get("id")
+    const name = searchParams.get("name")
+    const price = searchParams.get("price")
+    const image = searchParams.get("image")
+    const quantity = searchParams.get("quantity")
+
+    if (id && name && price && image && quantity) {
+      const newProduct: Product = {
+        id: parseInt(id),
+        name,
+        price: parseFloat(price),
+        rating: 3, // Default rating
+        image,
+        quantity: parseInt(quantity)
+      }
+
+      setProducts(prevProducts => {
+        const existingProductIndex = prevProducts.findIndex(p => p.id === newProduct.id)
+        if (existingProductIndex > -1) {
+          // Update existing product
+          const updatedProducts = [...prevProducts]
+          updatedProducts[existingProductIndex].quantity += newProduct.quantity
+          return updatedProducts
+        } else {
+          // Add new product
+          return [...prevProducts, newProduct]
+        }
+      })
+    }
+  }, [searchParams])
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(products))
+  }, [products])
+
   return (
-    <>       
-   <div className="relative w-full h-[410px] bg-black m-auto">
-        {/* Background Image */}
+    <>
+      <div className="relative w-full h-[410px] bg-black m-auto">
         <Image
           src={'/menubg.png'}
           alt={'Menu Background'}
@@ -80,91 +115,95 @@ export default function ShoppingCart() {
           objectFit="cover"
           className="absolute top-0 left-0 w-full h-full"
         />
-
-        {/* Heading on Top of Image */}
         <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 px-4 sm:px-6 md:px-8">
-          {/* Heading */}
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center">
-           Shopping Card
+            Shopping Cart
           </h1>
-
-          {/* Paragraph with Hover Effect */}
           <p className="text-sm sm:text-base text-white flex items-center space-x-2 group">
-            <span className="transition-colors duration-300">Home</span>
+            <Link href={"/"}><span className="transition-colors duration-300">Home</span></Link>
             <ChevronRight
               size={16}
               className="text-white transition-colors duration-300 group-hover:text-orange-500"
             />
-            <span className="transition-colors duration-300 text-orange-500">Shopping Card</span>
+            <span className="transition-colors duration-300 text-orange-500">Shopping Cart</span>
           </p>
         </div>
       </div>
-    <div className="w-full max-w-6xl mx-auto p-4">
-      <div className="grid grid-cols-12 gap-4 mb-4 text-sm font-bold text-gray-700">
-        <div className="col-span-6 md:col-span-6">Product</div>
-        <div className="col-span-2 text-center hidden md:block">Price</div>
-        <div className="col-span-2 text-center">Quantity</div>
-        <div className="col-span-2 text-center">Total</div>
-      </div>
-      <div className="space-y-4">
-        {products.map((product) => (
-          <div key={product.id} className="grid grid-cols-12 gap-4 items-center p-4 bg-white rounded-lg border">
-            <div className="col-span-6 md:col-span-6 flex gap-4 items-center">
-              <div className="relative w-20 h-20">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover rounded-lg"
-                />
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-bold text-gray-700">{product.name}</h3>
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={16}
-                      className={i < product.rating ? "fill-[#FF9F0D] stroke-[#FF9F0D]" : "fill-gray-200 stroke-gray-200"}
-                    />
-                  ))}
+      <div className="w-full max-w-6xl mx-auto p-4">
+        {products.length === 0 ? (
+          <p className="text-center text-gray-500 my-8">Your shopping cart is empty.</p>
+        ) : (
+          <>
+            <div className="grid grid-cols-12 gap-4 mb-4 text-sm font-bold text-gray-700">
+              <div className="col-span-6 md:col-span-6">Product</div>
+              <div className="col-span-2 text-center hidden md:block">Price</div>
+              <div className="col-span-2 text-center">Quantity</div>
+              <div className="col-span-2 text-center">Total</div>
+            </div>
+            <div className="space-y-4">
+              {products.map((product) => (
+                <div key={product.id} className="relative grid grid-cols-12 gap-4 items-center p-4 bg-white rounded-lg border border-b border-gray-200">
+                  <div className="col-span-6 md:col-span-6 flex gap-4 items-center">
+                    <div className="relative w-24 h-24 rounded-lg overflow-hidden">
+                      <Image
+                        src={product.image || "/placeholder.svg"}
+                        alt={product.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <h3 className="font-bold text-gray-700 text-lg">{product.name}</h3>
+                      <div className="flex gap-0.5">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            size={16}
+                            className={i < product.rating ? "fill-[#FF9F0D] stroke-[#FF9F0D]" : "fill-gray-200 stroke-gray-200"}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-span-2 text-center hidden md:block">
+                    ${product.price.toFixed(2)}
+                  </div>
+                  <div className="col-span-4 md:col-span-2">
+                    <div className="flex items-center justify-center gap-2 border rounded-full p-1">
+                      <button
+                        onClick={() => updateQuantity(product.id, -1)}
+                        className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                        aria-label="Decrease quantity"
+                      >
+                        <Minus size={16} className="text-gray-600" />
+                      </button>
+                      <span className="w-8 text-center font-semibold">{product.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(product.id, 1)}
+                        className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                        aria-label="Increase quantity"
+                      >
+                        <Plus size={16} className="text-gray-600" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="col-span-2 text-center font-bold">
+                    ${calculateTotal(product.price, product.quantity)}
+                  </div>
+                  <button
+                    onClick={() => removeProduct(product.id)}
+                    className="absolute right-4 top-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+                    aria-label="Remove item"
+                  >
+                    <Trash2 size={20} className="text-gray-400" />
+                  </button>
                 </div>
-              </div>
+              ))}
             </div>
-            <div className="col-span-2 text-center hidden md:block">
-              ${product.price.toFixed(2)}
-            </div>
-            <div className="col-span-4 md:col-span-2">
-              <div className="flex items-center justify-center gap-2 border rounded-full p-1">
-                <button
-                  onClick={() => updateQuantity(product.id, -1)}
-                  className="p-1 hover:bg-gray-100 rounded-full"
-                >
-                  <Minus size={16} className="text-gray-600" />
-                </button>
-                <span className="w-8 text-center">{product.quantity}</span>
-                <button
-                  onClick={() => updateQuantity(product.id, 1)}
-                  className="p-1 hover:bg-gray-100 rounded-full"
-                >
-                  <Plus size={16} className="text-gray-600" />
-                </button>
-              </div>
-            </div>
-            <div className="col-span-2 text-center font-bold">
-              ${calculateTotal(product.price, product.quantity)}
-            </div>
-            <button
-              onClick={() => removeProduct(product.id)}
-              className="absolute right-4 top-4 p-1 hover:bg-gray-100 rounded-full"
-            >
-              <X size={20} className="text-gray-400" />
-            </button>
-          </div>
-        ))}
+          </>
+        )}
       </div>
-    </div>
-    <CheckoutSummary />
+      <CheckOut />
     </>
   )
 }

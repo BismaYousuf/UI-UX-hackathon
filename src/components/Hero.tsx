@@ -1,7 +1,17 @@
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
+import { client } from '@/sanity/lib/client'
 
-export function HeroSection() {
+export async function HeroSection() {
+  const response = await client.fetch(
+    "*[_type == 'landingpage'][0].section[0]{'herosubhead': herosubhead, 'heroorangeHeading': heroorangeHeading, 'heroHeading': heroHeading, 'heropara': heropara, 'heroImg': heroImg.asset->url}"
+  );
+  const res = await client.fetch(
+    "*[_type == 'landingpage'][0].section[0]{'herosubhead': herosubhead, 'heroorangeHeading': heroorangeHeading, 'heroHeading': heroHeading, 'heropara': heropara, 'heroImg': heroImg.asset->url}"
+  );
+ 
+  const { herosubhead, heroorangeHeading, heroHeading, heropara, heroImg } = res;
+  
   return (
     <div className="relative bg-black min-h-screen flex items-center overflow-hidden">
       {/* Background image */}
@@ -23,13 +33,13 @@ export function HeroSection() {
 
               {/* Content */}
               <div className="pl-12">
-                <p className="text-[#FF9F0D] font-['Great_Vibes'] text-3xl mb-4">Its Quick & Amusing!</p>
+                <p className="text-[#FF9F0D] font-['Great_Vibes'] text-3xl mb-4">{herosubhead}</p>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
-                  <span className="text-[#FF9F0D]">The Art of speed</span><br />
-                  food Quality
+                  <span className="text-[#FF9F0D]">{heroHeading}</span><br />
+                {heroorangeHeading}
                 </h1>
                 <p className="mb-8 text-gray-300 max-w-md">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius sed pharetra dictum neque massa congue
+                 {heropara}
                 </p>
                 <Button className="bg-[#FF9F0D] text-white px-8 py-3 rounded-full hover:bg-[#FF9F0D]/90 transition-colors">
                   See Menu
@@ -47,7 +57,7 @@ export function HeroSection() {
           <div className="w-full lg:w-1/2 relative">
             <div className="relative w-full aspect-square max-w-2xl mx-auto t-[102.49px] r-[355.99px]">
               <Image
-                src="/food items.png"
+                src={heroImg}
                 alt="Food plate"
                 layout="fill"
                 objectFit="contain"

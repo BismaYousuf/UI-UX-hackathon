@@ -1,9 +1,12 @@
+//src\app\blog\page.tsx
+
 import Image from "next/image"
 import {  ChevronRight } from 'lucide-react'
 import { Card } from "@/components/ui/card"
 import BlogSidebar from "@/components/blogsidebar"
 import BlogCard2 from "@/components/blogCard2"
 import BlogCard3 from "@/components/blogCard3"
+import Link from "next/link"
 
 export default function BlogCard() {
   return (
@@ -19,7 +22,7 @@ export default function BlogCard() {
         <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 px-4 text-center">
           <h1 className="text-2xl sm:text-3xl lg:text-5xl font-bold text-white">Blog List</h1>
           <p className="text-sm sm:text-base text-white flex items-center space-x-2 group">
-            <span className="transition-colors duration-300">Home</span>
+          <Link href={"/"} ><span className="transition-colors duration-300">Home</span></Link>  
             <ChevronRight size={16} className="text-white transition-colors duration-300 group-hover:text-orange-500" />
             <span className="transition-colors duration-300 text-orange-500">Blog</span>
           </p>

@@ -28,7 +28,7 @@ const navigationItems = [
     ],
   },
   { title: "About", href: "/aboutSection" },
-  { title: "Shop", href: "/Ourshop" },
+  { title: "Shop", href: "/shop" },
   { title: "Contact", href: "/signupForm" },
 ];
 
@@ -123,9 +123,13 @@ export function Navbar() {
                 />
                 <Search className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-white" />
               </div>
-              <Button variant="ghost" size="icon" className="text-white">
-                <ShoppingBag className="h-6 w-6" />
-              </Button>
+              <Button 
+          variant="ghost" 
+            size="icon" 
+           className="text-white hover:bg-orange-600 hover:text-white">
+          <ShoppingBag className="h-6 w-6" />
+            </Button>
+
             </div>
           </div>
         </div>
@@ -173,7 +177,7 @@ export function Navbar() {
                   className="w-full rounded-full border-[#FF9F0D] bg-transparent text-white placeholder:text-white"
                 />
                 <Button variant="ghost" size="icon" className="text-white">
-                  <ShoppingBag className="h-24 w-24" />
+                  <ShoppingBag className="h-24 w-24 hover:bg-orange-600" />
                 </Button>
               </div>
             </div>

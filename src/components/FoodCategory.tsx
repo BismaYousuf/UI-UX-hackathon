@@ -1,6 +1,13 @@
+import { client } from "@/sanity/lib/client";
 import Image from "next/image";
+import Link from "next/link";
 
-export default function FoodCategory() {
+export default async function FoodCategory() {
+
+  const res = await client.fetch(
+ "*[_type == 'landingpage'][0].section[1]{'orangefoodHeading': orangefoodHeading, 'foodHeading': foodHeading, 'foodsubhead': foodsubhead, 'foodcategorycards': foodcategorycards[]{'foodcardimg': foodcardimg.asset->url, 'fooddis': fooddis, 'foodtitle': foodtitle}}"
+);
+  
   const foodItems = [
     {
       image: "/fastfood.png",
@@ -22,36 +29,41 @@ export default function FoodCategory() {
     },
   ];
 
+
   return (
     <section className="py-12 md:py-24 bg-black h-[700px]">
       <div className="container mx-auto px-4 max-w-[1320px] ">
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
           <span className="font-['Great_Vibes'] text-[#FF9F0D] text-2xl md:text-3xl block mb-2">
-            Food Category
+           {res.foodsubhead}
           </span>
           <h2 className="text-3xl md:text-5xl font-bold">
-            <span className="text-[#FF9F0D]">Ch</span>
-            <span className="text-white">oose Food Item</span>
+            <span className="text-[#FF9F0D]">{res.orangefoodHeading}</span>
+            <span className="text-white">{res.foodHeading}</span>
           </h2>
         </div>
 
         {/* Food Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {foodItems.map((item, index) => (
+          {(res.foodcategorycards).map((item : any, index: number) => (
             <div
               key={index}
               className={`relative group ${index === 0 ? "bg-orange-400" : ""}`}
             >
               {/* Image Container */}
               <div className="relative h-[200px] md:h-[329px] rounded-lg overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={item.alt}
-                  layout="fill"
-                  objectFit="cover"
-                  className="transition-transform duration-300 group-hover:scale-110"
-                />
+              <Link href={"/shop"}>
+        <div className="relative h-[200px] md:h-[329px] rounded-lg overflow-hidden">
+        <Image
+          src={res.foodcategorycards[index].foodcardimg}
+          alt={item.alt}
+          layout="fill"
+          objectFit="cover"
+          className="transition-transform duration-300 group-hover:scale-110"/>
+         </div>
+        </Link>
+                
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
@@ -61,7 +73,7 @@ export default function FoodCategory() {
                 <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4 right-2 md:right-4">
                   <div className="font-bold rounded-md">
                     <h3 className="text-lg md:text-xl text-white bg-orange-400 w-full md:w-[206px] h-[40px] md:h-[46px] p-2 md:p-4 flex items-center justify-center md:justify-start">
-                      {item.title}
+                    {res.foodcategorycards[index].foodtitle}
                     </h3>
                   </div>
                 </div>
@@ -71,7 +83,7 @@ export default function FoodCategory() {
               {index === 0 && item.discount && (
                 <div className="absolute top-2 md:top-4 right-2 md:right-4">
                   <div className="bg-white text-[#FF9F0D] font-bold px-2 md:px-4 py-1 md:py-2 rounded-md text-sm md:text-base">
-                    {item.discount}
+                  {res.foodcategorycards[index].fooddis}
                   </div>
                 </div>
               )}

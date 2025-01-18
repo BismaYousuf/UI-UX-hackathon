@@ -1,7 +1,9 @@
+//src\app\chefs\page.tsx
 import React from 'react';
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
 import { ChefCard } from '@/components/ChefCard';
+import Link from 'next/link';
 
 const chefs = [
   { name: "Tahmina Rumi", imageUrl: "/c1.png" }, 
@@ -32,7 +34,7 @@ export default function ChefGrid() {
         <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
           <h1 className="text-3xl md:text-[48px] font-bold text-white">Our Chef</h1>
           <p className="text-[16px] text-white flex items-center space-x-2 group">
-            <span className="transition-colors duration-300">Home</span>
+          <Link href={"/"} ><span className="transition-colors duration-300">Home</span></Link>  
             <ChevronRight
               size={16}
               className="text-white transition-colors duration-300 group-hover:text-orange-500"

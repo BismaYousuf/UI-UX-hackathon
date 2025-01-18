@@ -26,7 +26,7 @@ export default function NotFound() {
 
           {/* Paragraph with Hover Effect */}
           <p className="text-sm sm:text-base text-white flex items-center space-x-2 group">
-            <span className="transition-colors duration-300">Home</span>
+          <Link href={"/"} ><span className="transition-colors duration-300">Home</span></Link>  
             <ChevronRight
               size={16}
               className="text-white transition-colors duration-300 group-hover:text-orange-500"

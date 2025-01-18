@@ -1,3 +1,4 @@
+//src\app\aboutSection\page.tsx
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronRight, Play, Star } from 'lucide-react'
@@ -5,6 +6,7 @@ import WhyChooseUs from "@/components/WhyChooseUs"
 import { TeamMemberCard } from "@/components/teamMemberCards"
 import { Card } from "@/components/ui/card"
 import MenuSection from "@/components/menuSection"
+import Link from "next/link"
 
 export default function AboutSection() {
   return (
@@ -21,7 +23,7 @@ export default function AboutSection() {
         <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
           <h1 className="text-3xl sm:text-4xl md:text-[48px] font-bold text-white">About Us</h1>
           <p className="text-sm sm:text-base text-white flex items-center space-x-2 group">
-            <span className="transition-colors duration-300">Home</span>
+          <Link href={"/"} ><span className="transition-colors duration-300">Home</span></Link>  
             <ChevronRight size={16} className="text-white transition-colors duration-300 group-hover:text-orange-500" />
             <span className="transition-colors duration-300 text-orange-500">About</span>
           </p>

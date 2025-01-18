@@ -4,8 +4,12 @@ import { ArrowRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
-export default function CheckoutSummary() {
+export default function CheckOut() {
+  const router = useRouter()
+
   return (
     <div className="w-full max-w-7xl mx-auto p-4 mt-[120px] mb-[120px]">
       <div className="grid gap-8 md:grid-cols-2">
@@ -52,13 +56,16 @@ export default function CheckoutSummary() {
               </div>
             </CardContent>
           </Card>
+          <Link href={'/CheckOutform'} >
           <Button className="w-full h-16 text-lg bg-[#FF9F0D] hover:bg-[#FF9F0D]/90">
             Proceed to Checkout
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
+          </Link>
         </div>
       </div>
     </div>
   )
 }
+
 

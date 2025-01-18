@@ -1,10 +1,11 @@
-
+//src\app\menu\page.tsx
 import StarterMenu from '@/components/startmenu';
 import React from 'react';
 import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
 import Clients from '@/components/Clients';
 import MenuSection from '@/components/menu';
+import Link from 'next/link';
 
 function MenuHero() {
   return (
@@ -30,7 +31,7 @@ function MenuHero() {
 
           {/* Paragraph with Hover Effect */}
           <p className="text-sm sm:text-base text-white flex items-center space-x-2 group">
-            <span className="transition-colors duration-300">Home</span>
+          <Link href={"/"} ><span className="transition-colors duration-300">Home</span></Link>  
             <ChevronRight
               size={16}
               className="text-white transition-colors duration-300 group-hover:text-orange-500"

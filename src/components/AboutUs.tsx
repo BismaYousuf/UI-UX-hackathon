@@ -2,6 +2,9 @@ import { Check } from "lucide-react";
 import Image from "next/image";
 
 export default function AboutUs() {
+  
+  
+  
   return (
     <section className="bg-black py-20">
       <div className="container mx-auto px-4">

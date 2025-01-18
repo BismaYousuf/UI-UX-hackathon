@@ -1,8 +1,10 @@
+//src\app\faq\page.tsx
 'use client'
 
 import { Disclosure, Transition } from '@headlessui/react'
 import { Plus, Minus, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const faqs = [
   {
@@ -55,7 +57,7 @@ export default function FAQ() {
 
           {/* Paragraph with Hover Effect */}
           <p className="text-sm sm:text-base text-white flex items-center space-x-2 group">
-            <span className="transition-colors duration-300">Home</span>
+          <Link href={"/"} ><span className="transition-colors duration-300">Home</span></Link>  
             <ChevronRight
               size={16}
               className="text-white transition-colors duration-300 group-hover:text-orange-500"

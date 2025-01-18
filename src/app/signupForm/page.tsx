@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { User, Mail, Lock, ChevronRight } from 'lucide-react'
 import Image from "next/image"
+import Link from "next/link"
 
 export default function SignUpForm() {
   return (
@@ -30,7 +31,7 @@ export default function SignUpForm() {
 
           {/* Paragraph with Hover Effect */}
           <p className="text-sm sm:text-base text-white flex items-center space-x-2 group">
-            <span className="transition-colors duration-300">Home</span>
+          <Link href={"/"} ><span className="transition-colors duration-300">Home</span></Link>  
             <ChevronRight
               size={16}
               className="text-white transition-colors duration-300 group-hover:text-orange-500"
